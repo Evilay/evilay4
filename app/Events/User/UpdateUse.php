@@ -31,6 +31,8 @@ class UpdateUse
     }
 
     /**
+     *
+     *
      * @return User
      */
     public function getUser():user{
