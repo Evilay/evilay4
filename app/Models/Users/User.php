@@ -4,6 +4,7 @@ namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -81,6 +82,7 @@ class User extends Authenticatable
         'l_name',
         'm_name',
         'phone',
+        'avatar',
     ];
 
 
@@ -129,12 +131,10 @@ class User extends Authenticatable
     }
 
 
-
-
     /**
      * @return string
      */
-    public function getName():string
+    public function getName(): string
     {
         return trim($this->getLastName() . ' ' . $this->getFirstName() . ' ' . $this->getMiddleName());
     }
@@ -250,9 +250,11 @@ class User extends Authenticatable
     /**
      * @return string
      */
-    public function getUrl():string {
-        return route('users.show',$this);
+    public function getUrl(): string
+    {
+        return route('users.show', $this);
     }
+
     /**
      * @param Builder $query
      * @param array $frd
@@ -274,7 +276,7 @@ class User extends Authenticatable
                                 ->orWhere('l_name', 'like', '%' . $value . '%')
                                 ->orWhere('m_name', 'like', '%' . $value . '%')
                                 //->orWhere('username','like','%'.$value.'%')
-                                ->orWhere('email','like','%'.$value.'%');
+                                ->orWhere('email', 'like', '%' . $value . '%');
                         });
                     }
                     break;
@@ -286,8 +288,39 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
-    public function logs():HasMany{
+    public function logs(): HasMany
+    {
         return $this->hasMany(UserLog::class);
     }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar(string $avatar): void
+    {
+        $this->{'avatar'} = $avatar;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar(): ?string
+    {
+        $ava = $this->{'avatar'};
+        if ($ava == NULL) {
+            $ava = 'images/0SF3dcRIVhqgFMZKCSuVa59bHkbYdUclRPlUVeLM.jpeg';
+        } else {
+            $avatarurl = $this->{'avatar'};
+        }
+
+        return $ava;
+    }
+
+    public function getAvatarPublicPath(): ?string
+    {
+
+        return Storage::disk('public')->url($this->getAvatar());
+    }
+
 
 }

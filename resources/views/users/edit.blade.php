@@ -4,9 +4,14 @@
 
 
     <div class="row justify-content-center">
+
+        <div class=" text-center">
+            <img class="rounded w-25 img-thumbnail" src="{{$user->getAvatarPublicPath()}}">
+        </div>
+
         <div class="col-8 col-lg-4">
 
-            {{ Form::model($user,['url'=>route('users.update',$user),'method'=>'PATCH'])}}
+            {{ Form::model($user,['url'=>route('users.update',$user),'method'=>'PATCH', 'enctype'=>"multipart/form-data"])}}
 
             @include('users._form')
 

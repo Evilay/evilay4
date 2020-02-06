@@ -12,6 +12,11 @@ use Carbon\Carbon;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Users\UserLog;
+use Intervention\Image\Image;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class UserController extends Controller
 {
@@ -45,11 +50,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
         SEOMeta::setTitle('Пользователи ');
         $frd = $request->all();
         $users = $this->users::filter($frd)->paginate(5);
 
-        return view('users.index', compact('users', 'frd'));
+
+        return view('users.index', compact('users', 'frd','image'));
     }
 
     /**
@@ -96,6 +103,8 @@ class UserController extends Controller
         $user->setPassword($data['password']);
         $user->save();
 
+
+
         event(new RegisterUse($user));
 
         return redirect()->route('users.index');
@@ -118,8 +127,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        //
+       // $image = \Storage::disk('public')->url('images/qwe.jpeg');
+
+      //  dd($image);
         SEOMeta::setTitle('Редактирование — '.$user->getName() );
-        return view('users.edit',compact('user'));
+        return view('users.edit',compact('user','image'));
     }
 
     /**
@@ -136,11 +149,17 @@ class UserController extends Controller
             'f_name' => 'required',
             'l_name' => 'required',
             'm_name' => 'required',
-        ]);
+            'image' => 'required|mimes:jpeg,jpg|dimensions:min_width=100,min_height=400']);
 
         /**
          * @var User $user
          */
+
+        $image = $request->file('image')->storePublicly('images');
+
+        //$storage = Storage::disk('public');
+        //dd(url('storage/images/0SF3dcRIVhqgFMZKCSuVa59bHkbYdUclRPlUVeLM.jpeg'));
+        $user->setAvatar($image);
         $user->setFirstName($frd['f_name']);
         $user->setLastName($frd['l_name']);
         $user->setMiddleName($frd['m_name']);

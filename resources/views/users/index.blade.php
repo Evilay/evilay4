@@ -46,13 +46,18 @@ use App\Models\Users\User;
                 {{ $user->getKey() }}
             </div>
 
-            <div class="col-lg-7 col-6">
+            <div class="col-1">
+                <img class="rounded float-left w-75" src="{{$user->getAvatarPublicPath()}}">
+            </div>
+
+            <div class="col-lg-6 col-5">
+
                 {{ $user->getLastName() }}
                 {{ $user->getFirstName() }}
                 {{ $user->getMiddleName() }},
                 {{ $user->getEmail() }}
 
-                <br>
+
                 <small class="text-muted">
                     Роли: {{ implode(',',$user->getRoles()) }}
                 </small>

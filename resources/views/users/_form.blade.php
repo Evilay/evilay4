@@ -31,3 +31,10 @@
            'type'=>'date'
         ])
 
+@include('form._input',[
+           'name'=>'image',
+           'type'=>'file',
+           'required'=>true,
+           'label'=>'Изображение'
+        ])
+
