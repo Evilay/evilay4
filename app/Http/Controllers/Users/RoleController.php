@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Users\Role;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Users\UserLog;
+use Artesaos\SEOTools\Facades\SEOMeta;
 
 class RoleController extends Controller
 {
@@ -30,6 +32,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        SEOMeta::setTitle('Роли' );
         $frd = $request->all();
         $roles = $this->roles::filter($frd)->paginate(5);
 
@@ -43,6 +46,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        SEOMeta::setTitle('Создать роль' );
         return view('role.create');
     }
 
@@ -55,7 +59,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        /*$data = $request->all();
+        $data = $request->all();
         $this->validate($request, [
             'name' => 'required|min:1|max:50|unique:roles',
             'display_name' => 'required|min:1|max:50|unique:roles',
@@ -64,29 +68,7 @@ class RoleController extends Controller
 
         $role = Role::create($data);
         $role->save();
-        return redirect()->route('role.index'); */
-
-        $frd = $request->only([
-            'name',
-            'display_name',
-            'description',
-        ]);
-
-        $frd['name'] = Str::slug($frd['name']);
-        $frd['display_name'] = Str::title($frd['display_name']);
-
-        $this->validate($request, [
-            'name' => 'required|min:1|max:50|unique:roles',
-            'display_name' => 'required|min:1|max:50|unique:roles',
-        ]);
-
-
-
-        $role = Role::create($frd);
-
-        $flashMessages = [['type' => 'success', 'text' => 'Роль '.$role->getDisplayName().' добавлена']];
-
-        return redirect()->route('roles.index')->with(compact('flashMessages'));
+        return redirect()->route('role.index');
     }
 
     /**
@@ -106,6 +88,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        SEOMeta::setTitle('Редактировать роль '. $role->getDisplayName() );
         return view('role.edit',compact('role'));
     }
 
@@ -146,5 +129,18 @@ class RoleController extends Controller
     {
         $role->delete();
         return redirect()->route('role.index');
+    }
+
+    /**
+     * @param Request $request
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+    public function massDestroy(Request $request){
+        $rolesIds=$request->only('roless');
+        dd($rolesIds);
+        Role::whereIn('id',$rolesIds)->delete();
+        return redirect()->back();
     }
 }
