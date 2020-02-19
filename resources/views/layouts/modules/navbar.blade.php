@@ -1,3 +1,14 @@
+<?php
+
+use App\Models\Users\User;
+
+/**
+ * @var User $user
+ */
+
+?>
+
+
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">EVILAY</a>
@@ -22,6 +33,10 @@
                         <a class="nav-link" href="{{ route('permissions.index') }}"><i class="fas fa-balance-scale-right"></i>   Разрешения</a>
 
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('golosovanie.index') }}"><i class="fas fa-sitemap"></i>  Сайт</a>
+
+                    </li>
 
                 @endif
 
@@ -30,13 +45,20 @@
             <ul class="navbar-nav">
                 @if (auth()->check())
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-ninja"></i>
+
+                           <!-- <img class="rounded float-left w-25 h-25" src="{{Auth::user()->getAvatar()}}"> -->
                             {{  auth()->user()->getName() }}
                         </a>
+
+
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
                             {{ Form::open(['url'=>route('logout')]) }}
+
                             <button class="dropdown-item" onclick="return confirm('Вы действительно хотите выйти?')">
                                 Выйти
                             </button>

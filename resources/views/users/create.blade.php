@@ -3,9 +3,9 @@
 @section('content')
 
 
-    {{ Form::open(['url'=>route('users.store')]) }}
+    {{ Form::open(['url'=>route('poll.store')]) }}
 
-    @include('users._formall')
+    @include('golosovanie._formall')
 
 
     <button class="btn btn-primary">Создать</button>

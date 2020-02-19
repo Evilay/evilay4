@@ -46,8 +46,9 @@ use App\Models\Users\User;
                 {{ $user->getKey() }}
             </div>
 
-            <div class="col-1">
-                <img class="rounded float-left w-75" src="{{$user->getAvatarPublicPath()}}">
+
+            <div class="col col-1">
+                <img class="indexavatar img-fluid rounded-circle float-left" src="{{$user->getAvatar()}}">
             </div>
 
             <div class="col-lg-6 col-5">
