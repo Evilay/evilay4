@@ -39,6 +39,7 @@ Route::auth();
 //Auth::routes(['register' => false, 'reset' => true, 'verify' => true]);
 
 
+
 Route::group(['middleware' => ['auth']], function () {
    // Route::get('users/{user}/logs', 'Users\UserController@logs')->name('users.logs');
 
@@ -55,6 +56,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UserController');
     Route::resource('role', 'RoleController');
     Route::resource('permissions', 'PermissionController');
+    Route::resource('golosovanie', 'GolosController');
+    Route::resource('poll','PollController');
+
+
+
 });
 
 

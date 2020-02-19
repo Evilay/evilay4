@@ -56,6 +56,11 @@ use phpDocumentor\Reflection\Types\Integer;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereRoleIs($role = '', $team = null, $boolean = 'and')
  * @property string|null $age
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereAge($value)
+ * @property string|null $avatar
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Users\UserLog[] $logs
+ * @property-read int|null $logs_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User filter($frd)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereAvatar($value)
  */
 class User extends Authenticatable
 
@@ -308,18 +313,32 @@ class User extends Authenticatable
     {
         $ava = $this->{'avatar'};
         if ($ava == NULL) {
-            $ava = 'images/0SF3dcRIVhqgFMZKCSuVa59bHkbYdUclRPlUVeLM.jpeg';
+            $ava = 'http://evilay.ebsp.ru/storage/images/2Z3VR1VWeQzxp42eymfIQNcLIuZWpyebY3ZBbiO8.jpeg';
         } else {
-            $avatarurl = $this->{'avatar'};
+            $ava = $this->{'avatar'};
         }
 
         return $ava;
     }
 
+    public function getImageUrl(): string
+    {
+
+        return $this->avatar ?? 'http://evilay.ebsp.ru/storage/images/2Z3VR1VWeQzxp42eymfIQNcLIuZWpyebY3ZBbiO8.jpeg';
+
+    }
+
+
     public function getAvatarPublicPath(): ?string
     {
 
-        return Storage::disk('public')->url($this->getAvatar());
+
+        return Storage::disk('public')->url($this->getImageUrl());
+    }
+
+    public function setImageUrl(string $image_url): void
+    {
+        $this->avatar = $image_url;
     }
 
 

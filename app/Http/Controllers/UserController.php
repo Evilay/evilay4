@@ -15,6 +15,7 @@ use App\Models\Users\UserLog;
 use Intervention\Image\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\FilesystemAdapter;
 
 
 
@@ -138,9 +139,11 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @throws \Illuminate\Validation\ValidationException
      */
+
     public function update(Request $request, User $user)
     {
         $frd = $request->all();
@@ -155,15 +158,34 @@ class UserController extends Controller
          * @var User $user
          */
 
-        $image = $request->file('image')->storePublicly('images');
+        //$image = $request->file('image');
 
         //$storage = Storage::disk('public');
         //dd(url('storage/images/0SF3dcRIVhqgFMZKCSuVa59bHkbYdUclRPlUVeLM.jpeg'));
-        $user->setAvatar($image);
+        //$user->setAvatar($image);
         $user->setFirstName($frd['f_name']);
         $user->setLastName($frd['l_name']);
         $user->setMiddleName($frd['m_name']);
         $user->save();
+
+
+        $storage = Storage::disk('public');
+        $localPath = '/images/'.$user->getKey().'-'.time().'.jpg';
+        $image = $request->file('image');
+        $oldAvatarLocalPath = $user->getImageUrl();
+        if (null !== $oldAvatarLocalPath && $storage->has($oldAvatarLocalPath)) {
+            $storage->delete($oldAvatarLocalPath);
+        }
+
+        $image = $request->file('image');
+        /**
+         * @var FilesystemAdapter $storage
+         */
+        $storage->put($localPath, $image->get());
+        $publicPath = $storage->url($localPath);
+        $user->setImageUrl($publicPath);
+        $user->save();
+
 
         event(new UpdateUse($user));
 

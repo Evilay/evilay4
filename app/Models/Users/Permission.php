@@ -30,6 +30,9 @@ use Laratrust\Traits\LaratrustPermissionTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Permission whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Permission whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Permission whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Users\Role[] $roles
+ * @property-read int|null $roles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Permission filter($frd)
  */
 class Permission extends LaratrustPermission
 {

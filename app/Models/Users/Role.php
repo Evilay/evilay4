@@ -30,6 +30,7 @@ use Laratrust\Traits\LaratrustRoleTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Role whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\Role filter($frd)
  */
 class Role extends LaratrustRole
 {
