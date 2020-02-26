@@ -46,6 +46,10 @@ Route::group(['middleware' => ['auth']], function () {
     /**
      * Связь пользователя с ролями
      */
+
+    Route::resource('polls/{poll}/vote','Polls\PollVoteController');
+   // Route::resource('article/{poll}/vote', 'ArticleController');
+    Route::resource('polls/{poll}/result','Polls\PollValueController');
     Route::get('users/{user}/logs','UserController@logs')->name('users.logs');
     Route::delete('users/{user}/logsDestroy','UserController@logsDestroy')->name('users.logs.destroy');
     Route::delete('roles/mass-destroy','RoleController@massDestroy')->name('roles.mass.destroy');
@@ -54,10 +58,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('users/{user}/password', 'UserController@password')->name('users.password');
     Route::patch('users/{user}/password', 'UserController@passwordUpdate')->name('users.password.update');
     Route::resource('users', 'UserController');
-    Route::resource('role', 'RoleController');
-    Route::resource('permissions', 'PermissionController');
-    Route::resource('golosovanie', 'GolosController');
-    Route::resource('poll','PollController');
+        Route::resource('role', 'RoleController');
+        Route::resource('permissions', 'PermissionController');
+        //Route::resource('golosovanie', 'GolosController');
+        Route::resource('polls','Polls\PollController');
+
+
 
 
 

@@ -3,6 +3,14 @@
 namespace App\Models\Polls;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
+
 
 /**
  * Class PollValue
@@ -37,6 +45,20 @@ class PollValue extends Model
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function poll():BelongsTo{
+        return $this->belongsTo(Poll::class);
+    }
+
+    /**
+     * @return Poll
+     */
+    public function getPoll():Poll{
+        return $this->poll;
     }
 
     /**

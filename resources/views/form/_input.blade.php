@@ -8,10 +8,12 @@
     'required'=>$required ?? null,
     ]) }}
 
-   
+
     @if($errors->has($name) === true)
         <div class="invalid-feedback">{{ $errors->first($name) }}</div>
     @endif
 </div>
+
+
 
 

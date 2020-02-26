@@ -33,10 +33,10 @@ use App\Models\Users\User;
                         <a class="nav-link" href="{{ route('permissions.index') }}"><i class="fas fa-balance-scale-right"></i>   Разрешения</a>
 
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{{ route('golosovanie.index') }}"><i class="fas fa-sitemap"></i>  Сайт</a>
+{{--                    <li class="nav-item ">--}}
+{{--                        <a class="nav-link" href="{{ route('golosovanie.index') }}"><i class="fas fa-sitemap"></i>  Сайт</a>--}}
 
-                    </li>
+{{--                    </li>--}}
 
                 @endif
 

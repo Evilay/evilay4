@@ -1,19 +1,51 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Polls;
 
+use App\Http\Controllers\Controller;
+use App\Models\Polls\Poll;
+use App\Models\Polls\PollValue;
+use App\Models\Polls\Vote;
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Facades\SEOMeta;
 
 class PollValueController extends Controller
 {
+
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Poll $poll
+     * @param Vote $vote
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request, Poll $poll, Vote $vote)
     {
-        //
+
+        $pollValues = $poll->getValues();
+
+        SEOMeta::setTitle('Голосование — '.$poll->getName() );
+        $qwe = $poll->getName();
+
+        $frd = $request->all();
+
+        dd($poll ->getResult() ->groupBy('poll_value_id')
+);
+
+
+        /**dddddd*/
+        $data = [];
+
+        $qwe = $vote ->getPollValueId();
+        dd($qwe);
+//            ->select()
+//            ->groupBy('poll_value_id')
+//            //->count()
+//         ;
+
+dd($qwe);
+
+        return view('Polls.result', compact('poll', 'frd','pollValues','data'));
     }
 
     /**
@@ -81,4 +113,6 @@ class PollValueController extends Controller
     {
         //
     }
+
+
 }

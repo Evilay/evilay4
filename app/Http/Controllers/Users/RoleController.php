@@ -59,6 +59,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+
         $data = $request->all();
         $this->validate($request, [
             'name' => 'required|min:1|max:50|unique:roles',
