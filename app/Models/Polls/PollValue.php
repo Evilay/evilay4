@@ -39,7 +39,27 @@ class PollValue extends Model
         'name',
     ];
 
+    public function getIds():int{
+        return $this->poll_id;
+    }
+
+    public function getCount():int{
+        return $this->count;
+    }
+
+
+    public function getVotesCount():int{
+            return $this->votes()->count();
+    }
+
     /**
+     * @return HasMany
+     */
+    public function votes():HasMany{
+        return $this->hasMany(Vote::class,'poll_value_id');
+    }
+
+  /**
      * @return int
      */
     public function getId(): int
@@ -100,6 +120,7 @@ class PollValue extends Model
     {
         $this->name = $name;
     }
+
 
 
 

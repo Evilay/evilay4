@@ -76,15 +76,17 @@ class Poll extends Model
     /**
      * @return HasMany
      */
-    public function result():HasMany{
+    public function votes():HasMany{
         return $this->hasMany(Vote::class,'poll_id','id');
     }
+
+
 
     /**
      * @return Collection
      */
-    public function getResult():Collection{
-        return $this->result;
+    public function getVotes():Collection{
+        return $this->votes;
     }
 
     /**
@@ -186,6 +188,6 @@ class Poll extends Model
         $this->image = $image_url;
     }
 
-    //public function getFinal():
+
 
 }

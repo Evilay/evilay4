@@ -8,6 +8,7 @@ use App\Models\Polls\PollValue;
 use App\Models\Polls\Vote;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOMeta;
+use DB;
 
 class PollValueController extends Controller
 {
@@ -19,33 +20,21 @@ class PollValueController extends Controller
      * @param Vote $vote
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, Poll $poll, Vote $vote)
+    public function index(Request $request, Poll $poll, Vote $vote, PollValue $values)
     {
 
         $pollValues = $poll->getValues();
 
         SEOMeta::setTitle('Голосование — '.$poll->getName() );
         $qwe = $poll->getName();
-
         $frd = $request->all();
-
-        dd($poll ->getResult() ->groupBy('poll_value_id')
-);
+        $values = $poll->getValues();
 
 
-        /**dddddd*/
-        $data = [];
+        $results = DB::select('select poll_id,count(poll_value_id) as count from poll_votes group by poll_id, select poll_id, name from poll_values');
+        dd($results);
 
-        $qwe = $vote ->getPollValueId();
-        dd($qwe);
-//            ->select()
-//            ->groupBy('poll_value_id')
-//            //->count()
-//         ;
-
-dd($qwe);
-
-        return view('Polls.result', compact('poll', 'frd','pollValues','data'));
+        return view('Polls.result', compact('poll', 'frd','pollValues','data','values','results'));
     }
 
     /**
