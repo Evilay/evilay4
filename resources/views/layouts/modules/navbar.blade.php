@@ -21,6 +21,11 @@ use App\Models\Users\User;
 
                 @if (auth()->check())
 
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href=" {{ route('debug') }}"> <i class="fas fa-users"></i>  DEBUG</a>
+                    </li>
+
                     <li class="nav-item ">
                         <a class="nav-link" href=" {{ route('users.index') }}"> <i class="fas fa-users"></i>  Пользователи</a>
 

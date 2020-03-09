@@ -3,6 +3,8 @@
 namespace App\Models\Polls;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Users\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Vote
@@ -94,6 +96,14 @@ class Vote extends Model
     {
         $this->user_id = $user_id;
     }
+
+    /**
+     * @return HasMany
+     */
+    public function users():HasMany{
+        return $this->hasMany(User::class,'id');
+    }
+
 
     /**
      * @return int

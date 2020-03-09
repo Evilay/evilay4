@@ -15,7 +15,7 @@ class VkPollController extends Controller
      */
     public function index(Request $request)
     {
-        SEOMeta::setTitle('Голосования ');
+        SEOMeta::setTitle('mirage ');
         $frd = $request->all();
 
         return view('vkpolls.index', compact('frd'));

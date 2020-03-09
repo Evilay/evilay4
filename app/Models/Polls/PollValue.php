@@ -39,17 +39,18 @@ class PollValue extends Model
         'name',
     ];
 
-    public function getIds():int{
-        return $this->poll_id;
+    /**
+     * @return Collection
+     */
+    public function getVotes():Collection{
+        return $this->votes;
     }
 
-    public function getCount():int{
-        return $this->count;
-    }
-
-
+    /**
+     * @return int
+     */
     public function getVotesCount():int{
-            return $this->votes()->count();
+        return $this->votes_count ?? $this->votes->count();
     }
 
     /**

@@ -57,26 +57,26 @@ use App\Models\Users\User;
             </header>
         </section>
         <!-- Carousel -->
-        <section class="carousel">
+        <section class="carousel container">
             @include('Polls.modules._mininav')
-            <div class="reel">
-
-
-
+            <div class="reel row"   >
                 @foreach($polls as $poll)
-                    <article>
-                        <a href="polls/{{ $poll->getId() }}/vote" class="image featured">
-                            <img class="im32" src="{{ $poll->getImage() }}" alt=""/></a>
-                        <header>
-                            <h3><a href="polls/{{ $poll->getId() }}/vote">{{ $poll->getName() }}</a></h3>
-                        </header>
-                        <p class="h-100">{{ $poll->getDescription() }}</p>
-                        @role(['Overlord','Admin'])
-                        <li class="featured image">
-                            <a class="featured" href=" {{ route('polls.edit',$poll) }}"> Редактировать голосование</a>
-                        </li>
-                        @endrole
-                    </article>
+                    <div class="col-lg-4">
+                        <article>
+                            <a href="polls/{{ $poll->getId() }}/vote" class="image featured">
+                                <img class="im32" src="{{ $poll->getImage() }}" alt=""/></a>
+                            <header>
+                                <h3><a href="polls/{{ $poll->getId() }}/vote">{{ $poll->getName() }}</a></h3>
+                            </header>
+                            <p class="h-100">{{ $poll->getDescription() }}</p>
+                            @role(['Overlord','Admin'])
+                            <li class="featured image">
+                                <a class="featured" href=" {{ route('polls.edit',$poll) }}"> Редактировать голосование</a>
+                            </li>
+                            @endrole
+                        </article>
+
+                    </div>
 
                 @endforeach
 

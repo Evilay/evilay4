@@ -42,7 +42,6 @@ class PollVoteController extends Controller
         $pollValues = $poll->getValues();
 
         SEOMeta::setTitle('Голосование — '.$poll->getName() );
-        $qwe = $poll->getName();
 
         $frd = $request->all();
 
