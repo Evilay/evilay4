@@ -43,6 +43,8 @@ Route::auth();
 Route::group(['middleware' => ['auth']], function () {
    // Route::get('users/{user}/logs', 'Users\UserController@logs')->name('users.logs');
 
+    Route::get('debug', 'HomeController@debug')->name('debug');
+
     /**
      * Связь пользователя с ролями
      */
@@ -62,8 +64,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('permissions', 'PermissionController');
         //Route::resource('golosovanie', 'GolosController');
         Route::resource('polls','Polls\PollController');
+        Route::resource('mirage','VkPolls\VkPollController');
 
+    Route::get('vkauth', function (\ATehnix\VkClient\Auth $auth) {
+        echo "<a href='{$auth->getUrl()}'> Войти через VK.Com </a><hr>";
 
+        if (Request::exists('code')) {
+            echo 'Token: '.$auth->getToken(Request::get('code'));
+        }
+    });
 
 
 
