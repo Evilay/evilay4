@@ -57,6 +57,10 @@
                                         {{ __('Login') }}
                                     </button>
 
+                                    <a href="login/vkontakte" class="btn btn-primary">
+                                        {{ __('Login with VK') }}
+                                    </a>
+
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}

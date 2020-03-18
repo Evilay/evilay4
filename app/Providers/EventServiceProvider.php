@@ -31,8 +31,12 @@ class EventServiceProvider extends ServiceProvider
         "App\Events\User\RegisterUse"=>[
             "App\Listeners\User\RegisterUseWriter"
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // add your listeners (aka providers) here
+            'SocialiteProviders\\VKontakte\\VKontakteExtendSocialite@handle',
+        ],
     ];
-    
+
 
     /**
      * Register any events for your application.

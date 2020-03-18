@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
+/**
+ * App\Models\API\VKApi
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\API\VKApi newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\API\VKApi newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\API\VKApi query()
+ * @mixin \Eloquent
+ */
 class VKApi extends Model
 {
     /**
@@ -50,12 +58,13 @@ class VKApi extends Model
 
     /**
      * @param int $groupId
+     * @param int $offset
      * @return array
      * @throws \ATehnix\VkClient\Exceptions\VkException
      */
-    public function groupsGetMembers(int $groupId): array
+    public function groupsGetMembers(int $groupId, int $offset): array
     {
-        return $this->get('groups.getMembers',  ['group_id' => $groupId]);
+        return $this->get('groups.getMembers',  ['group_id' => $groupId, 'offset'=>$offset]);
     }
 
     /**
@@ -69,9 +78,28 @@ class VKApi extends Model
         if (null !== $fieldsArray){
             $fieldsString = implode(',',$fieldsArray);
         }else{
-            $fieldsString  = 'first_name,is_closed,sex,bdate,deactivated,last_name,city,photo_200';
+            $fieldsString  = 'first_name,is_closed,sex,deactivated,last_name,city,photo_400_orig,bdate';
         }
         return $this->get('users.get', ['user_ids' => $usersIds, 'fields' =>$fieldsString]);
+    }
+
+    /**
+     * @param array $usersIds
+     * @param $fieldsArray
+     * @return array
+     * @throws \ATehnix\VkClient\Exceptions\VkException
+     */
+    public function usersBDateGet(array $usersIds): array
+    {
+        $bdate = $this->get('users.get', ['user_ids' => $usersIds, 'fields' =>'bdate']);
+
+//        switch ($fields) {
+//            case 1:
+//                ;
+//                break; }
+
+
+        return $bdate;
     }
 
 

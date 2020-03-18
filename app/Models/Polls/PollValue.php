@@ -26,6 +26,13 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Polls\PollValue whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Polls\PollValue wherePollId($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Polls\Poll|null $poll
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Polls\Vote[] $votes
+ * @property-read int|null $votes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Polls\PollValue whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Polls\PollValue whereUpdatedAt($value)
  */
 class PollValue extends Model
 {

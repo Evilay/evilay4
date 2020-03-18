@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Users\User;
 use App\Models\Users\UserLog;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class LoginController extends Controller
 {
@@ -24,7 +26,8 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+   use AuthenticatesUsers;
+
 
 
     /**
@@ -42,6 +45,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function redirectToProvider()
+    {
+       return   Socialite::driver('vkontakte')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        //$user = Socialite::driver('vkontakte')->user();
+        dd('1');
+
+        // $user->token;
     }
 
     public function logout()

@@ -165,11 +165,13 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
 
+
         //Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
+
 
         /*
          * Application Service Providers...
@@ -184,6 +186,9 @@ return [
          * Vk-providers
          */
         ATehnix\LaravelVkRequester\VkRequesterServiceProvider::class,
+
+
+        \SocialiteProviders\Manager\ServiceProvider::class, // add
 
     ],
 
@@ -235,6 +240,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+      //  'Socialite' => Illuminate\Socialite\Facades\Socialite::class,
 
 
 

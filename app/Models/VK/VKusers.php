@@ -37,6 +37,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VK\VKusers whereSex($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VK\VKusers whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $bday
+ * @property int|null $bmonth
+ * @property int|null $byear
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VK\VKusers whereBday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VK\VKusers whereBmonth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VK\VKusers whereByear($value)
  */
 class VKusers extends Model
 {
@@ -50,15 +56,63 @@ class VKusers extends Model
         'id_user',
         'first_name',
         'last_name',
-        'deactivated',
-        'is_closed',
-        'bdate',
+        'bday',
+        'bmonth',
+        'byear',
         'city',
         'sex',
         'photo_url',
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * @return int|null
+     */
+    public function getBday(): ?int
+    {
+        return $this->bday;
+    }
+
+    /**
+     * @param int|null $bday
+     */
+    public function setBday(?int $bday): void
+    {
+        $this->bday = $bday;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getBmonth(): ?int
+    {
+        return $this->bmonth;
+    }
+
+    /**
+     * @param int|null $bmonth
+     */
+    public function setBmonth(?int $bmonth): void
+    {
+        $this->bmonth = $bmonth;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getByear(): ?int
+    {
+        return $this->byear;
+    }
+
+    /**
+     * @param int|null $byear
+     */
+    public function setByear(?int $byear): void
+    {
+        $this->byear = $byear;
+    }
 
     /**
      * @return array
@@ -76,16 +130,18 @@ class VKusers extends Model
         $this->guarded = $guarded;
     }
 
-    public function init(){
-//        $vk_users->setIdUser($frd['id_user']);
-//        $vk_users->setFirstName($frd['first_name']);
-//        $vk_users->setLastName($frd['last_name']);
-//        $vk_users->setDeactivated($frd['deactivated']);
-//        $vk_users->setIsClosed($frd['is_closed']);
-//        $vk_users->setBdate($frd['bdate']);
-//        $vk_users->setCity($frd['city']);
-//        $vk_users->setSex($frd['sex']);
-//        $vk_users->setPhotoUrl($frd['photo_url']);
+    public function init($frd){
+        dd($frd['first_name']);
+        $vk_users = VKusers::create($frd);
+        $vk_users->setFirstName($frd['first_name']);
+        $vk_users->setLastName($frd['last_name']);
+        $vk_users->setDeactivated($frd['deactivated']);
+        $vk_users->setIsClosed($frd['is_closed']);
+        $vk_users->setBdate($frd['bdate']);
+        $vk_users->setCity($frd['city']);
+        $vk_users->setSex($frd['sex']);
+        $vk_users->setPhotoUrl($frd['photo_url']);
+        $vk_users->save();
     }
 
     /**

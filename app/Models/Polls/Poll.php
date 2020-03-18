@@ -35,6 +35,10 @@ use phpDocumentor\Reflection\Types\Integer;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Polls\Poll whereDescription($value)
  * @property string $image
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Polls\Poll whereImage($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Polls\PollValue[] $values
+ * @property-read int|null $values_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Polls\Vote[] $votes
+ * @property-read int|null $votes_count
  */
 class Poll extends Model
 {

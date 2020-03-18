@@ -39,6 +39,9 @@ Route::auth();
 //Auth::routes(['register' => false, 'reset' => true, 'verify' => true]);
 
 
+Route::get('login/vkontakte', 'Auth\LoginController@redirectToProvider');
+Route::get('login/vkontakte/callback', 'Auth\LoginController@handleProviderCallback');
+
 
 Route::group(['middleware' => ['auth']], function () {
    // Route::get('users/{user}/logs', 'Users\UserController@logs')->name('users.logs');
@@ -48,6 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
     /**
      * Связь пользователя с ролями
      */
+
+
 
     Route::resource('polls/{poll}/vote','Polls\PollVoteController');
    // Route::resource('article/{poll}/vote', 'ArticleController');
